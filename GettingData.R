@@ -38,7 +38,17 @@ head(PS)
 PSd = PS %.% group_by(date) %.% summarise(avgdel=mean(arrdelay,na.rm=TRUE))
 qplot(date,avgdel,data=PSd,geom="line")
 ## Try SQL code...
-delay2 = delay %.% mutate(date=DATEFROMPARTS(year,month,dayofmonth))
+delay2 = delay %.% mutate(date=cast(to_date(as.character(month) || as.character(year), 'MMYYYY')))
+head(delay2)
 ### Does not work!
-delay2=delay %.% group_by(year,month,dayofmonth) %.% summarise(avgdel=mean(depdelay))
-head(delay2,n=10L)
+
+for(i in 1987:1988){
+  df.a=rbind(df.a,as.data.frame(delay %.% 
+  filter(year==i) %.%
+  group_by(uniquecarrier,year,month) %.% 
+  summarise(avgdely=mean(arrdelay))))
+  print(i)
+  }
+
+df.a$date=ISOdate(df.a$year,df.a$month,1)
+qplot(date,avgdely,data=df.a,group=uniquecarrier,color=uniquecarrier,geom="line")
