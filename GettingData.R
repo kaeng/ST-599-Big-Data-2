@@ -2,6 +2,10 @@
 # than other airlines? Please examine this using 25 years of flight data for
 # the entire country. 
 
+library(dplyr)
+library(RPostgreSQL)
+library(ggplot2)
+
 # --- setting up parameters to access the data base --- #
 endpoint <- "flights.cwick.co.nz"
 user <- "student"
