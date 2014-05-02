@@ -29,7 +29,8 @@ tbl_df(head(delay))
 num=delay %.% group_by(uniquecarrier) %.% summarise(num=n())
 # Getting one carrier 
 PS = as.data.frame(delay %.% filter(uniquecarrier=="PS"))
+PS$date=ISOdate(PS$year,PS$month,PS$dayofmonth)
 head(PS)
-PS$date=paste(PS$dayofmonth,"-",PS$month,"-",PS$year,sep="")
-dmy(PS$date)
-? ISOdate
+PSd = PS %.% group_by(date) %.% summarise(avgdel=mean(arrdelay,na.rm=TRUE))
+qplot(date,avgdel,data=PSd,geom="line")
+
