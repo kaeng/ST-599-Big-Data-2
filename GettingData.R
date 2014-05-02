@@ -2,6 +2,10 @@
 # than other airlines? Please examine this using 25 years of flight data for
 # the entire country. 
 
+library(dplyr)
+library(RPostgreSQL)
+library(ggplot2)
+
 # --- setting up parameters to access the data base --- #
 endpoint <- "flights.cwick.co.nz"
 user <- "student"
@@ -30,7 +34,7 @@ num=delay %.% group_by(uniquecarrier) %.% summarise(num=n())
 # Getting all carriers with data frame (takes long time for big carriers)
 
 df.a=data.frame(uniquecarrier=c(0),year=c(0),month=c(0),avgdely=c(0))
-for(i in 1987:1989){
+for(i in 1987:2013){
   df.a=rbind(df.a,as.data.frame(delay %.% 
   filter(year==i) %.%
   group_by(uniquecarrier,year,month) %.% 
