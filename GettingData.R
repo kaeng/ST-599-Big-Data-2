@@ -43,7 +43,7 @@ head(delay2)
 ### Does not work!
 
 df.a=data.frame(uniquecarrier=c(0),year=c(0),month=c(0),avgdely=c(0))
-for(i in 1987:1989){
+for(i in 1987:2013){
   df.a=rbind(df.a,as.data.frame(delay %.% 
   filter(year==i) %.%
   group_by(uniquecarrier,year,month) %.% 
