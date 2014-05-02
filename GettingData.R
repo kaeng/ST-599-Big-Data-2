@@ -1,3 +1,7 @@
+# Are there any airlines with flight delays that are systematically worse
+# than other airlines? Please examine this using 25 years of flight data for
+# the entire country. 
+
 # --- setting up parameters to access the data base --- #
 endpoint <- "flights.cwick.co.nz"
 user <- "student"
@@ -19,3 +23,18 @@ str(flights)
 head(flights) 
 # or you could use tbl_df to print it pretty
 tbl_df(head(flights))
+delay=flights %.% select(year:dayofweek,uniquecarrier,arrdelay,depdelay,carrierdelay:lateaircraftdelay,origin:dest)
+tbl_df(head(delay))
+# Getting number of flights by carrier
+num=delay %.% group_by(uniquecarrier) %.% summarise(num=n())
+# Getting one carrier with data frame (takes long time for big carriers)
+PS = as.data.frame(delay %.% filter(uniquecarrier=="PS"))
+PS$date=ISOdate(PS$year,PS$month,PS$dayofmonth)
+head(PS)
+PSd = PS %.% group_by(date) %.% summarise(avgdel=mean(arrdelay,na.rm=TRUE))
+qplot(date,avgdel,data=PSd,geom="line")
+## Try SQL code...
+delay2 = delay %.% mutate(date=DATEFROMPARTS(year,month,dayofmonth))
+### Does not work!
+delay2=delay %.% group_by(year,month,dayofmonth) %.% summarise(avgdel=mean(depdelay))
+head(delay2,n=10L)
