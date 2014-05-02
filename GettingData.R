@@ -27,16 +27,7 @@ delay=flights %.% select(year:dayofweek,uniquecarrier,arrdelay,depdelay,carrierd
 tbl_df(head(delay))
 # Getting number of flights by carrier
 num=delay %.% group_by(uniquecarrier) %.% summarise(num=n())
-# Getting one carrier with data frame (takes long time for big carriers)
-PS = as.data.frame(delay %.% filter(uniquecarrier=="PS"))
-PS$date=ISOdate(PS$year,PS$month,PS$dayofmonth)
-head(PS)
-PSd = PS %.% group_by(date) %.% summarise(avgdel=mean(arrdelay,na.rm=TRUE))
-qplot(date,avgdel,data=PSd,geom="line")
-## Try SQL code...
-delay2 = delay %.% mutate(date=cast(to_date(as.character(month) || as.character(year), 'MMYYYY')))
-head(delay2)
-### Does not work!
+# Getting all carriers with data frame (takes long time for big carriers)
 
 df.a=data.frame(uniquecarrier=c(0),year=c(0),month=c(0),avgdely=c(0))
 for(i in 1987:1989){
@@ -47,8 +38,5 @@ for(i in 1987:1989){
   print(i)
   }
 head(df.a)
-
-
 df.a$date=ISOdate(df.a$year,df.a$month,1)
-
 qplot(date,avgdely,data=df.a,group=uniquecarrier,color=uniquecarrier,geom="line")
