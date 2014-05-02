@@ -38,13 +38,17 @@ delay2 = delay %.% mutate(date=cast(to_date(as.character(month) || as.character(
 head(delay2)
 ### Does not work!
 
-for(i in 1987:1988){
+df.a=data.frame(uniquecarrier=c(0),year=c(0),month=c(0),avgdely=c(0))
+for(i in 1987:1989){
   df.a=rbind(df.a,as.data.frame(delay %.% 
   filter(year==i) %.%
   group_by(uniquecarrier,year,month) %.% 
   summarise(avgdely=mean(arrdelay))))
   print(i)
   }
+head(df.a)
+
 
 df.a$date=ISOdate(df.a$year,df.a$month,1)
+
 qplot(date,avgdely,data=df.a,group=uniquecarrier,color=uniquecarrier,geom="line")
