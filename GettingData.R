@@ -19,6 +19,6 @@ str(flights)
 head(flights) 
 # or you could use tbl_df to print it pretty
 tbl_df(head(flights))
-del=flights %.% select(year:dayofweek,uniquecarrier,arrdelay,depdelay,carrierdelay:lateaircraftdelay)
-head(del)
+delay=flights %.% select(year:dayofweek,uniquecarrier,arrdelay,depdelay,carrierdelay:lateaircraftdelay)
+tbl_df(head(delay))
 
