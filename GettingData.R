@@ -43,4 +43,7 @@ for(i in 1987:2013){
   }
 head(df.a)
 df.a$date=ISOdate(df.a$year,df.a$month,1)
+df.a=df.a[-1,]
+df.b = df.a %.% group_by(year,uniquecarrier) %.% summarise(avgdelz=mean(avgdely))
 qplot(date,avgdely,data=df.a,group=uniquecarrier,color=uniquecarrier,geom="line")
+qplot(year,avgdelz,data=df.b,color=uniquecarrier,geom="line")
