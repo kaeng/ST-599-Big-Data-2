@@ -49,4 +49,4 @@ sampledat=delay %.% group_by(uniquecarrier) %.%
          |uniquecarrier=="WN")
 sampledat=sampledat %.% 
   filter(uniquecarrier=="VX") %.% filter(random() < 0.001) %.%
-  summarise(avdel=mean(arrdelay),stratsize=n())
+  summarise(avgarrdelaydel=mean(arrdelay),stratsize=n())
