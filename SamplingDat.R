@@ -47,6 +47,6 @@ sampledat=delay %.% group_by(uniquecarrier) %.%
          |uniquecarrier=="9E"
          |uniquecarrier=="EV"
          |uniquecarrier=="WN")
-
-newsamp=as.data.frame(sampledat)
-
+sampledat=sampledat %.% 
+  filter(uniquecarrier=="VX") %.% filter(random() < 0.001) %.%
+  summarise(avdel=mean(arrdelay),stratsize=n())
