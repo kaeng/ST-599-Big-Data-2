@@ -25,3 +25,28 @@ head(flights)
 tbl_df(head(flights))
 delay=flights %.% select(year:dayofweek,uniquecarrier,arrdelay,depdelay,carrierdelay:lateaircraftdelay,origin:dest)
 tbl_df(head(delay))
+
+
+xistair=df.a %.% filter(year=="2013")
+xistair1=as.character(unique(xistair$uniquecarrier))
+  
+sampledat=delay %.% group_by(uniquecarrier) %.% 
+  filter(uniquecarrier=="US"
+         |uniquecarrier=="MQ"
+         |uniquecarrier=="YV"
+         |uniquecarrier=="AS"
+         |uniquecarrier=="F9"
+         |uniquecarrier=="DL"
+         |uniquecarrier=="UA"
+         |uniquecarrier=="AA"
+         |uniquecarrier=="HA"
+         |uniquecarrier=="VX"
+         |uniquecarrier=="B6"
+         |uniquecarrier=="OO"
+         |uniquecarrier=="FL"
+         |uniquecarrier=="9E"
+         |uniquecarrier=="EV"
+         |uniquecarrier=="WN")
+
+newsamp=as.data.frame(sampledat)
+
