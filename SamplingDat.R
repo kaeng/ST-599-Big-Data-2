@@ -24,7 +24,7 @@ flights <- tbl(ontime, "flights")
 # or you could use tbl_df to print it pretty
 #tbl_df(head(flights))
 delay=flights %.% select(year:dayofweek,uniquecarrier,arrdelay,depdelay,carrierdelay:lateaircraftdelay,origin:dest)
-<<<<<<< HEAD
+
 #tbl_df(head(delay))
 
 
@@ -38,8 +38,8 @@ carriers2013 <- unique(Avgs_by_month_local$uniquecarrier)
 
 get2013dat <- delay %.% 
   select(year,uniquecarrier,arrdelay,depdelay) %.%
-  filter(uniquecarrier == "US") %.% filter(random() < .001) %.% summarise(avgarrdelay = mean(arrdelay),
-                                                                          stratsize = n())
+  filter(uniquecarrier == "US") %.% filter(random() < .001) %.% 
+  summarise(avgarrdelay = mean(arrdelay), stratsize = n())
 
 #|
 #           uniquecarrier == "MQ" |  #KT
