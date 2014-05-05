@@ -57,12 +57,28 @@ get2013dat <- delay %.%
 #           uniquecarrier == "9E" |  #FW
 #           uniquecarrier == "EV" |  #FW
 #           uniquecarrier == "WN")   #FW
-#%.% group_by(uniquecarrier)
 
   
 explain(get2013dat)
 
 
 sample2013 <- collect(get2013dat)
+
+
+
+##############################
+# Lu's Code
+##############################
+
+
+##############################
+# Ben's Code
+##############################
+
+
+
+##############################
+# FangWu's Code
+##############################
 
 
