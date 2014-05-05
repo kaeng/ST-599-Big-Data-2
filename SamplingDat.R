@@ -24,6 +24,7 @@ flights <- tbl(ontime, "flights")
 # or you could use tbl_df to print it pretty
 #tbl_df(head(flights))
 delay=flights %.% select(year:dayofweek,uniquecarrier,arrdelay,depdelay,carrierdelay:lateaircraftdelay,origin:dest)
+<<<<<<< HEAD
 #tbl_df(head(delay))
 
 
