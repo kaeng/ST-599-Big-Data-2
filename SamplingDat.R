@@ -39,7 +39,7 @@ carriers2013 <- unique(Avgs_by_month_local$uniquecarrier)
 get2013dat <- delay %.% 
   select(year,uniquecarrier,arrdelay,depdelay) %.%
   filter(uniquecarrier == "US") %.% filter(random() < .001) %.% 
-  summarise(avgarrdelay = mean(arrdelay), stratvar = var(arrdelay), stratsize = n())
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
 
 #|
 #           uniquecarrier == "MQ" |  #KT
