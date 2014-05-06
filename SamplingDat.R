@@ -70,6 +70,26 @@ sample2013 <- collect(get2013dat)
 # Lu's Code
 ##############################
 
+summary_F9 <- delay %.% 
+  select(year,uniquecarrier,arrdelay) %.%
+  filter(uniquecarrier == "F9") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
+summary_DL <- delay %.% 
+  select(year,uniquecarrier,arrdelay) %.%
+  filter(uniquecarrier == "DL") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
+summary_UA <- delay %.% 
+  select(year,uniquecarrier,arrdelay) %.%
+  filter(uniquecarrier == "UA") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
+summary_AA <- delay %.% 
+  select(year,uniquecarrier,arrdelay) %.%
+  filter(uniquecarrier == "AA") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
 
 ##############################
 # Ben's Code
