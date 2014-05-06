@@ -75,16 +75,42 @@ sample2013 <- collect(get2013dat)
 # Ben's Code
 ##############################
 
-get2013dat=data.frame(sampleavg=0,samplevar=0,samplesize=0)
-for (i in c("US","MQ","YV","AS","F9","DL","UA","AA","HA","VX","B6","OO","FL","9E","EV","WN")){
-  get2013dat <- rbind(get2013dat, collect(delay %.% 
-  select(year,uniquecarrier,arrdelay,depdelay) %.%
-  filter(uniquecarrier == i) %.% filter(random() < .001) %.% 
-  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())))
-  print(i)
-}
+
+
 ##############################
 # FangWu's Code
+# getting sample data and analyzing
+
+getdat_FL <- delay %.% 
+  select(year,uniquecarrier,arrdelay,depdelay) %.%
+  filter(uniquecarrier == "FL") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
+sampledat_FL <- collect(getdat_FL)
+
+getdat_9E <- delay %.% 
+  select(year,uniquecarrier,arrdelay,depdelay) %.%
+  filter(uniquecarrier == "9E") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
+sampledat_9E <- collect(getdat_9E)
+
+getdat_EV <- delay %.% 
+  select(year,uniquecarrier,arrdelay,depdelay) %.%
+  filter(uniquecarrier == "EV") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
+sampledat_EV <- collect(getdat_EV)
+
+getdat_WN <- delay %.% 
+  select(year,uniquecarrier,arrdelay,depdelay) %.%
+  filter(uniquecarrier == "WN") %.% filter(random() < .001) %.% 
+  summarise(sampleavg = mean(arrdelay), samplevar = var(arrdelay), samplesize = n())
+
+sampledat_WN <- collect(getdat_WN)
+
+
+
 ##############################
 
 
