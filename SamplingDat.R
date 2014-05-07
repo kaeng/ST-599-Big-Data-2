@@ -92,8 +92,9 @@ summary_AA <- delay %.%
 
 
 pop_size <- delay %.% group_by(uniquecarrier) %.% summarise(num=n())
-as.data.frame(pop_size)
+popnsize=as.data.frame(pop_size)
 
+sampledat=merge(x=get2013dat,y=popnsize,by="uniquecarrier")
 ###############   Population size 
 1             9E  1342097
 2             AA  17678497
