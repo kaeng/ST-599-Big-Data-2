@@ -95,6 +95,8 @@ pop_size <- delay %.% group_by(uniquecarrier) %.% summarise(num=n())
 popnsize=as.data.frame(pop_size)
 
 sampledat=merge(x=get2013dat,y=popnsize,by="uniquecarrier")
+qplot(uniquecarrier,AvgDel,data=sampledat) + 
+  geom_errorbar(aes(uniquecarrier,ymin=AvgDel-2*sqrt(AvgVar),ymax=AvgDel+2*sqrt(AvgVar)))
 ###############   Population size 
 1             9E  1342097
 2             AA  17678497
