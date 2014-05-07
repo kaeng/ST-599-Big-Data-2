@@ -28,8 +28,8 @@ new <- left_join(x=dat2013,y=carriercodes,by="uniquecarrier")
 new <- new %.% mutate(carrier.y = ifelse(month==12,carrier,""))
 
 # ggvis code to at least get the profile plot
-ggvis(new, props(x = ~date, y = ~avgarrdelay, stroke = ~as.factor(carrier), strokeOpacity := .5)) +
-  layer_line(props(strokeWidth.hover := 4, strokeWidth := 2, strokeOpacity.hover := 1)) +
+ggvis(new, props(x = ~date, y = ~avgarrdelay, stroke = ~as.factor(carrier), strokeOpacity := 1)) +
+  layer_line(props(strokeWidth.hover := 4, strokeWidth := 1, strokeOpacity.hover := 1)) +
   guide_legend(fill = "stroke") +
   layer_text(props(text := ~carrier.y, dx := 5, dy := 0, strokeOpacity := 0,
                    strokeOpacity.hover:= 1, fontSize := 5, fontSize.hover := 18))
