@@ -45,5 +45,6 @@ head(df.a)
 df.a$date=ISOdate(df.a$year,df.a$month,1)
 df.a=df.a[-1,]
 df.b = df.a %.% group_by(year,uniquecarrier) %.% summarise(avgdelz=mean(avgdely))
-qplot(date,avgdely,data=df.a,group=uniquecarrier,color=uniquecarrier,geom="line")
+qplot(date,avgdely,data=df.a,group=uniquecarrier,color=uniquecarrier,geom="line")+
+  theme(axis.text=element_text(size=22),axis.title=element_text(size=24,face="bold"))
 qplot(year,avgdelz,data=df.b,color=uniquecarrier,geom="line")
