@@ -36,6 +36,8 @@ delay=flights %.% select(year:dayofweek,uniquecarrier,arrdelay)
 carriercodes <- read.csv("carriers.csv",header=TRUE,col.names=c("uniquecarrier","carrier"),
                        stringsAsFactors = FALSE)
 
+carriercodes <- tbl_df(carriercodes)
+
 # =================================
 # Population in 2013
 # =================================
@@ -212,6 +214,20 @@ ggvis(popandsim, props(x = ~date, y = ~sampleavg, stroke = ~as.factor(carrier), 
 # Static plot (population versus sample and error bars)
 # ======================================================
 
+sampfunc <- function(name){
 
+  theme_set(theme_grey(base_size=18))
+  carr <- carriercodes$uniquecarrier[which(carriercodes$carrier==name)]
+  
+qplot(x=date,y=sampleavg,data=popandsim[popandsim$uniquecarrier==carr,],xlab="",
+      ylab="Average Arrival Delay",size=2.5,main=paste(name),ylim=c(-20,50)) +
+  geom_errorbar(aes(date,ymin=sampleavg-2*sqrt(StdError),ymax=sampleavg+2*sqrt(StdError)),size=1) +
+  geom_line(aes(x=date,y=avgarrdelay),size=1,color="red")
 
+}
+
+for (i in 1:16){
+  airline <- unique(popandsim$carrier)[i]
+  print(sampfunc(airline))
+}
 
