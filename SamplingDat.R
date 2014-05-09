@@ -97,8 +97,9 @@ popnsize=as.data.frame(pop_size)
 caravg=df.a %.% group_by(uniquecarrier) %.% summarise(carrieravg=mean(avgdely))
 sampledat=merge(sampledat,caravg,"uniquecarrier")
 sampledat=merge(x=get2013dat,y=popnsize,by="uniquecarrier")
+sampledat=merge(x=sampledat,y=caravg,by="uniquecarrier")
 sampledat$varmean = (1-(sampledat$Size/sampledat$num))*(sampledat$AvgVar/sampledat$Size)
-sampledat = sampledat[order(sampledat$carrieravg),]
+
 qplot(reorder(uniquecarrier,carrieravg),AvgDel,data=sampledat,xlab="Carrier",ylab="Average Arrival Delay Plus Error",size=2.5) + 
   geom_errorbar(aes(uniquecarrier,ymin=AvgDel-2*sqrt(varmean),ymax=AvgDel+2*sqrt(varmean)),size=1) +
   geom_point(aes(y=carrieravg),size=2.5,color="red")
