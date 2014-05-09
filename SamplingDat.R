@@ -94,6 +94,10 @@ summary_AA <- delay %.%
 pop_size <- delay %.% group_by(uniquecarrier) %.% summarise(num=n())
 popnsize=as.data.frame(pop_size)
 
+# =============================================
+# 27 year average plot, sample v population
+# =============================================
+
 caravg=df.a %.% group_by(uniquecarrier) %.% summarise(carrieravg=mean(avgdely))
 sampledat=merge(sampledat,caravg,"uniquecarrier")
 sampledat=merge(x=get2013dat,y=popnsize,by="uniquecarrier")
@@ -103,6 +107,27 @@ sampledat$varmean = (1-(sampledat$Size/sampledat$num))*(sampledat$AvgVar/sampled
 qplot(reorder(uniquecarrier,carrieravg),AvgDel,data=sampledat,xlab="Carrier",ylab="Average Arrival Delay Plus Error",size=2.5) + 
   geom_errorbar(aes(uniquecarrier,ymin=AvgDel-2*sqrt(varmean),ymax=AvgDel+2*sqrt(varmean)),size=1) +
   geom_point(aes(y=carrieravg),size=2.5,color="red")
+
+# =============================================
+# 27 year average plot, sample v population
+# =============================================
+
+newsampledat <- sampledat %.% mutate(uniquecarrier = as.character(uniquecarrier))
+newsampledat <- inner_join(newsampledat,carriercodes,"uniquecarrier")
+newsampledat[newsampledat$uniquecarrier=="US",]$carrier <- "US Airways Inc."
+
+newsampledat$carrier <- with(newsampledat, reorder(carrier, desc(carrieravg)))
+
+pdf("pop27yrplot.pdf",height=7,width=12)
+ggplot(newsampledat,aes(carrier,carrieravg),size=2.5) + 
+  geom_errorbar(aes(carrier,ymin=AvgDel-2*sqrt(varmean),ymax=AvgDel+2*sqrt(varmean)),size=1) +
+  geom_point(aes(y=carrieravg),size=2.5,color="red") +
+  geom_point(aes(y=AvgDel),size=2.5,color="black") +
+  ylab("Average Arrival Delay") +
+  xlab("") +
+  ggtitle("27 Year Average and SE bars") +
+  coord_flip()
+dev.off()
 ###############   Population size 
 1             9E  1342097
 2             AA  17678497

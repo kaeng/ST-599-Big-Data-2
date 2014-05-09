@@ -54,6 +54,13 @@ Avgs_by_month_local <- collect(Avgs_by_month)
 Avgs_by_month_local <- Avgs_by_month_local %.% mutate(date=ISOdate(year,month,1))
 
 
+popandsim[popandsim$uniquecarrier=="US",]$carrier <- "US Airways Inc."
+
+pdf("pop2013plot.pdf",height=7,width=12)
+ggplot(popandsim,aes(date,avgarrdelay)) +
+  geom_line(aes(group=carrier,colour=carrier),size=1.25)
+dev.off()
+
 
 # =================================
 # The interactPlot for Pop 2013
@@ -227,7 +234,7 @@ qplot(x=date,y=sampleavg,data=popandsim[popandsim$uniquecarrier==carr,],xlab="",
 }
 
 for (i in 1:16){
-  airline <- unique(popandsim$carrier)[i]
+  airline <- sort(unique(popandsim$carrier))[i]
   print(sampfunc(airline))
 }
 
